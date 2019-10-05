@@ -5,7 +5,7 @@
    Alberto González
    Francisco Afán*/
 
-#include <iostream>   
+#include <iostream>
 using namespace std; 
 /* La función merge divide el arr[]. 
    El primer array es arr[l..m] 
@@ -133,7 +133,14 @@ void printArray(int arr[], int n)
 // Driver program 
 int main() 
 { 
-    int arr[] = {3, 8, 3, 1, 7, 10}; 
+	int x;
+	cout << "Introduzca el tama"<<char(164)<<"o del array: ";
+	cin >> x;
+    int arr[x];
+    for (int i=0;i<x;i++){
+    	cout << "Introduzca el valor en la posici"<<char(162)<<"n "<<(i+1)<<" del array: ";
+    	cin >> arr[i];
+	}
     int n = sizeof(arr)/sizeof(arr[0]); 
   
   	cout << "Given array is \n"; 
@@ -147,4 +154,4 @@ int main()
     cout << "\nSorted array by Mergesort is \n"; 
     printArray(arr, n); 
     return 0;
-} 
+}
