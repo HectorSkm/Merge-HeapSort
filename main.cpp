@@ -1,27 +1,34 @@
-// C++ program for implementation of Heap Sort 
-#include <iostream> 
-#include<stdio.h>   
-using namespace std; 
+/* Codigo creado por el grupo formado por:
+   Héctor Palencia
+   Arturo Alba
+   Alvaro Iglesias
+   Alberto González
+   Francisco Afán*/
 
+#include <iostream>   
+using namespace std; 
+/* La función merge divide el arr[]. 
+   El primer array es arr[l..m] 
+   Y el segundo es arr[m+1..r]*/ 
 void merge(int arr[], int l, int m, int r) 
 { 
     int i, j, k; 
     int n1 = m - l + 1; 
     int n2 =  r - m; 
   
-    /* create temp arrays */
+    /* crea versiones temporales del array dividido */
     int L[n1], R[n2]; 
   
-    /* Copy data to temp arrays L[] and R[] */
+    /* Copia los datos originales del array en L[] y R[] */
     for (i = 0; i < n1; i++) 
         L[i] = arr[l + i]; 
     for (j = 0; j < n2; j++) 
         R[j] = arr[m + 1+ j]; 
   
-    /* Merge the temp arrays back into arr[l..r]*/
-    i = 0; // Initial index of first subarray 
-    j = 0; // Initial index of second subarray 
-    k = l; // Initial index of merged subarray 
+    /* Va haciendo merge de los array temporales en el array original arr[l..r]*/
+    i = 0; // Valor inicio del primer array temporal
+    j = 0; // Valor inicio del Segundo array temporal
+    k = l; // Valor de referencia para realizar el mergeI
     while (i < n1 && j < n2) 
     { 
         if (L[i] <= R[j]) 
@@ -37,8 +44,7 @@ void merge(int arr[], int l, int m, int r)
         k++; 
     } 
   
-    /* Copy the remaining elements of L[], if there 
-       are any */
+    /* Copia los elementos restantes de L[], si hay alguno */
     while (i < n1) 
     { 
         arr[k] = L[i]; 
@@ -46,8 +52,7 @@ void merge(int arr[], int l, int m, int r)
         k++; 
     } 
   
-    /* Copy the remaining elements of R[], if there 
-       are any */
+    /* Copia los elementos restantes de R[], si hay alguno */
     while (j < n2) 
     { 
         arr[k] = R[j]; 
