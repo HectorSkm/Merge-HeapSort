@@ -5,8 +5,8 @@
    Alberto González
    Francisco Afán*/
 
-#include <iostream>
-using namespace std; 
+#include <iostream> //Libreria para el manejo de operaciones de E/S
+using namespace std; //Namespace para evitar el uso de std:: cada vez que se quiera mostrar algo por pantalla
 /* La función merge divide el arr[]. 
    El primer array es arr[l..m] 
    Y el segundo es arr[m+1..r]*/ 
@@ -29,23 +29,24 @@ void merge(int arr[], int l, int m, int r)
     i = 0; // Valor inicio del primer array temporal
     j = 0; // Valor inicio del Segundo array temporal
     k = l; // Valor de referencia para realizar el mergeI
-    while (i < n1 && j < n2) 
+    while (i < n1 && j < n2) // Va comprobando elemento a elemento de los sub-array
     { 
-        if (L[i] <= R[j]) 
+        if (L[i] <= R[j])//Comprueba si el elemento izquierdo es menor que el derecho
         { 
-            arr[k] = L[i]; 
-            i++; 
+            arr[k] = L[i];  //Añade el elemento menor al array final mergeado
+            i++; //Aumenta el indice del sub-array izquierdo
         } 
-        else
+        else //En caso de que el elemento derecho sea menor que el izquierdo
         { 
-            arr[k] = R[j]; 
-            j++; 
+            arr[k] = R[j]; //Añade el elemento menor al array final mergeado
+            j++; //Aumenta el indice del sub-array derecho
         } 
-        k++; 
+        k++; //Va aumentando el indice del array final mergeado
     } 
-  
-    /* Copia los elementos restantes de L[], si hay alguno */
-    while (i < n1) 
+  	
+    /* Copia los elementos restantes de L[], si hay alguno. */	
+    while (i < n1) /*Si se ha hecho exhaust (recorrido al completo) del sub-array derecho se copian todos los elementos 
+    		     del sub-array izquierdo al array final ya que estan previamente ordenados*/ 
     { 
         arr[k] = L[i]; 
         i++; 
@@ -53,7 +54,8 @@ void merge(int arr[], int l, int m, int r)
     } 
   
     /* Copia los elementos restantes de R[], si hay alguno */
-    while (j < n2) 
+    while (j < n2) /*Al igual que en el caso anterior si se ha hecho exhaust del sub-array izquierdo se copian todos los elementos
+    		     del sub-array derecho al array final ya que estan previamente ordenados*/
     { 
         arr[k] = R[j]; 
         j++; 
@@ -61,97 +63,99 @@ void merge(int arr[], int l, int m, int r)
     } 
 } 
   
-/* l is for left index and r is right index of the 
-   sub-array of arr to be sorted */
+/* l representa el indice izquierdo y r al indice derecho del 
+   sub-array del array original (arr[]) que va a ser ordenado */
 void mergeSort(int arr[], int l, int r) 
 { 
     if (l < r) 
     { 
-        // Same as (l+r)/2, but avoids overflow for 
-        // large l and h 
-        int m = l+(r-l)/2; 
+        /* En caso de tener un tamaño impar de array se calcula de modo que deja un elemento mas 
+	    en el lado izquierdo */
+        int m = l+(r-l)/2; //Calcula el punto medio del array para hacer las divisiones
   
-        // Sort first and second halves 
+        // Ordena primero y despues hace las divisiones del array hasta la unidad de ambos lados l y r 
         mergeSort(arr, l, m); 
         mergeSort(arr, m+1, r); 
   
-        merge(arr, l, m, r); 
+        merge(arr, l, m, r); /*Por ultimo hace una llamada a merge para unir los dos sub-arrays ya ordenados
+	    			y aplicar de nuevo el algoritmo para obtener el array final con todos los datos
+				en orden ascendente*/
     } 
 }   
-// To heapify a subtree rooted with node i which is 
-// an index in arr[]. n is size of heap 
+/* La funcion heapify es la que se encarga de dar forma de un arbol a los datos con raiz en el nodo i
+que es el indice del array y en n el tamaño del monticulo o heap */
 void heapify(int arr[], int n, int i) 
 { 
-    int largest = i; // Initialize largest as root 
-    int l = 2*i + 1; // left = 2*i + 1 
-    int r = 2*i + 2; // right = 2*i + 2 
+    int largest = i; // Inicializa un MaxHeap como raiz usando el nodo i
+    int l = 2*i + 1; // left = 2*i + 1 inicializa el nodo izquierdo del subarbol
+    int r = 2*i + 2; // right = 2*i + 2 inicializa el nodo derecho del subarbol
   
-    // If left child is larger than root 
+    // Si el hijo izquierdo es mayor que la raiz 
     if (l < n && arr[l] > arr[largest]) 
-        largest = l; 
+        largest = l; //Hace un swap entre el hijo y la raiz o "MaxHeap"
   
-    // If right child is larger than largest so far 
+    // Si el hijo derecho es mayor que la raiz 
     if (r < n && arr[r] > arr[largest]) 
-        largest = r; 
+        largest = r; //Hace un swap entre el hijo y la raiz o "MaxHeap"
   
-    // If largest is not root 
+    // Si el mayor termino no es la raiz 
     if (largest != i) 
     { 
         swap(arr[i], arr[largest]); 
   
-        // Recursively heapify the affected sub-tree 
+        // Se aplica la funcion de forma recursiva al subarbol resultante 
         heapify(arr, n, largest); 
     } 
 } 
   
-// main function to do heap sort 
+// Funcion principal para aplicar el algoritmo HeapSort
 void heapSort(int arr[], int n) 
 { 
-    // Build heap (rearrange array) 
+    // Construye el monticulo (rearrange array) 
     for (int i = n / 2 - 1; i >= 0; i--) 
         heapify(arr, n, i); 
   
-    // One by one extract an element from heap 
+    // Extrae elementos uno a uno del monticulo
     for (int i=n-1; i>=0; i--) 
     { 
-        // Move current root to end 
+        // Intercambia la raiz con el ultimo elemento
         swap(arr[0], arr[i]); 
   
-        // call max heapify on the reduced heap 
+        // Llama a la funcion para aplicar de nuevo el algortimo al subarbol reducido 
         heapify(arr, i, 0); 
     } 
 } 
   
-/* A utility function to print array of size n */
+/* Funcion para imprimir el array de tamaño n */
 void printArray(int arr[], int n) 
 { 
     for (int i=0; i<n; ++i) 
-        cout << arr[i] << " "; 
+        cout << arr[i] << " "; //Va mostrando posicion a posicion el array junto a un espacio representado por " "
     cout << "\n"; 
 } 
   
-// Driver program 
+// Funcion principal del programa
 int main() 
 { 
-	int x;
+	int x; //x es el tamaño del array que se pide al usuario por consola
 	cout << "Introduzca el tama"<<char(164)<<"o del array: ";
 	cin >> x;
-    int arr[x];
-    for (int i=0;i<x;i++){
+    int arr[x];//Declaramos un array del tamaño que el usuario nos haya dado
+    for (int i=0;i<x;i++){ //Rellenamos mediante un for un array hasta llegar al tamaño dado por el usuario
     	cout << "Introduzca el valor en la posici"<<char(162)<<"n "<<(i+1)<<" del array: ";
     	cin >> arr[i];
 	}
     int n = sizeof(arr)/sizeof(arr[0]); 
   
-  	cout << "Given array is \n"; 
+  	cout << "El array original dado es: \n"; 
     printArray(arr, n);
     
     heapSort(arr, n); 
-    cout << "\nSorted array by Heapsort is \n"; 
+    cout << "\nEl array ordenado por Heapsort es: \n"; 
     printArray(arr, n); 
     
     mergeSort(arr, 0, n - 1); 
-    cout << "\nSorted array by Mergesort is \n"; 
+    cout << "\nEl array ordenado por Mergesort es: \n"; 
     printArray(arr, n); 
     return 0;
 }
