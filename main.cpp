@@ -7,7 +7,10 @@
 
 #include <iostream> //Libreria para el manejo de operaciones de E/S
 using namespace std; //Namespace para evitar el uso de std:: cada vez que se quiera mostrar algo por pantalla
-/* La función merge divide el arr[]. 
+
+
+/*------------------------------------------------------------------------------FUNCION MERGESORT:
+   La función merge divide el arr[]. 
    El primer array es arr[l..m] 
    Y el segundo es arr[m+1..r]*/ 
 void merge(int arr[], int l, int m, int r) 
@@ -82,7 +85,10 @@ void mergeSort(int arr[], int l, int r)
 				en orden ascendente*/
     } 
 }   
-/* La funcion heapify es la que se encarga de dar forma de un arbol a los datos con raiz en el nodo i
+
+/*------------------------------------------------------------------------------FUNCION HEAPSORT:
+
+La funcion heapify es la que se encarga de dar forma de un arbol a los datos con raiz en el nodo i
 que es el indice del array y en n el tamaño del monticulo o heap */
 void heapify(int arr[], int n, int i) 
 { 
